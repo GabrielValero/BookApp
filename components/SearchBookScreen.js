@@ -2,11 +2,11 @@ import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
-import List from '.global/list';
-import Card from '.global/card';
+import List from './global/list';
+import Card from './global/card';
 import Search from './search';
 import BottomsMode from './global/bottomsMode'
-import { AntDesign, Feather } from '@expo/vector-icons'; 
+import { AntDesign, Feather } from '@expo/vector-icons';
 
 export default function SearchBookScreen({navigation}) {
 
@@ -19,19 +19,19 @@ export default function SearchBookScreen({navigation}) {
   const fetchBooks = (option)=>{
     let link;
 
-    if(option=="busqueda") 
+    if(option=="busqueda")
     	link = `https://www.googleapis.com/books/v1/volumes?q=${search}&maxResults=10&filter=ebooks&key=AIzaSyBkh9iqwxqpO0tYQTP8T9WAISHXZoFo3Gc`;
 		else link = `https://www.googleapis.com/books/v1/volumes?q=${search}&maxResults=40&startIndex=${offset}&filter=ebooks&key=AIzaSyBkh9iqwxqpO0tYQTP8T9WAISHXZoFo3Gc`
-    
+
     fetch(link)
     .then(response => response.json())
     .then(result => {
        if(result.items != undefined){
-       
+
         result.items.map(book=>{
           for(let i=0; i<books.length; i++){
             if(books[i].id == book.id){
-              books.splice(books.indexOf(books[i]), 1 ) 
+              books.splice(books.indexOf(books[i]), 1 )
             }
           }
         })
@@ -41,10 +41,10 @@ export default function SearchBookScreen({navigation}) {
           setOffset(12);
         }
         else{
-        
+
           setBooks(books.concat(result.items));
           setOffset(offset+42);
-        
+
         }
       }else{
         setError("No hay mas resultados");
@@ -59,18 +59,18 @@ export default function SearchBookScreen({navigation}) {
 
   return (
     <View style={styles.barra}>
-      {books.length == 0 && 
+      {books.length == 0 &&
         <View>
           <Text style={styles.textoHi}>Hola</Text>
           <Text style={styles.textoHeader}>El conocimiento es <Text style={{fontWeight: "bold"}}>Poder</Text></Text>
         </View>
       }
         <Search setSearch={setSearch}/>
-        {search != "" && 
+        {search != "" &&
           <BottomsMode mode={mode} search={search} setMode={setMode} />
         }
         {books.length > 0 ?
-          !mode ? 
+          !mode ?
             <FlatList
               data={books}
               renderItem={({item})=>(<Card item={item} navigation={navigation} />)}
@@ -93,10 +93,10 @@ export default function SearchBookScreen({navigation}) {
               onEndReached={fetchBooks}
               onEndReachedThreshold={0.8}
             />
-          : 
+          :
           <ScrollView>
             <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-              <Image style={styles.images} source={require("./Images/knowledge_.png")} />
+              <Image style={styles.images} source={require("../Images/knowledge_.png")} />
               <Text style={styles.frase}>"¡Qué extraña cosa el conocimiento! Una vez que ha penetrado en la mente, se aferra a ella como la hiedra a la roca"</Text>
               <Text style={{fontWeight: "bold", fontSize:20,}}>-Frankenstein</Text>
             </View>

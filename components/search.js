@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, TextInput, TouchableOpacity} from 'react-native'
-import { AntDesign } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons';
+
 export default function Search({setSearch}){
 
 	const [search, setText] = useState("")
@@ -14,8 +15,8 @@ export default function Search({setSearch}){
 			<View style={styles.container}>
 				<TextInput style={styles.input}
 					placeholder="Busca tu libro favorito"
-					placeholderTextColor="#A6A6A6" 
-					value={search} 
+					placeholderTextColor="#A6A6A6"
+					value={search}
 					onSubmitEditing={Buscar}
 					onChangeText={(text)=>setText(text)}
 				/>
@@ -23,7 +24,7 @@ export default function Search({setSearch}){
 					<AntDesign name="search1" size={25} color="#454545"/>
 				</TouchableOpacity>
 			</View>
-		</View>	
+		</View>
 	)
 }
 const styles = StyleSheet.create({
@@ -57,6 +58,6 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 		borderRadius: 30,
-		
+
 	}
 })

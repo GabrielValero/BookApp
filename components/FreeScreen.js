@@ -6,7 +6,7 @@ import List from './global/list';
 import Card from './global/card';
 import Search from './search';
 import BottomsMode from './global/bottomsMode'
-import { AntDesign, Feather } from '@expo/vector-icons'; 
+import { AntDesign, Feather } from '@expo/vector-icons';
 
 export default function FreeScreen({navigation}) {
 
@@ -25,11 +25,11 @@ export default function FreeScreen({navigation}) {
     .then(response => response.json())
     .then(result => {
        if(result.items != undefined){
-       
+
         result.items.map(book=>{
           for(let i=0; i<books.length; i++){
             if(books[i].id == book.id){
-              books.splice(books.indexOf(books[i]), 1 ) 
+              books.splice(books.indexOf(books[i]), 1 )
             }
           }
         })
@@ -39,10 +39,10 @@ export default function FreeScreen({navigation}) {
           setOffset(12);
         }
         else{
-        
+
           setBooks(books.concat(result.items));
           setOffset(offset+42);
-        
+
         }
       }else{
         setError("No hay mas resultados");
@@ -58,18 +58,18 @@ export default function FreeScreen({navigation}) {
   return (
     <View style={styles.barra}>
     <StatusBar style="auto" />
-      {books.length == 0 && 
+      {books.length == 0 &&
         <View>
           <Text style={styles.textoHi}>LIBROS GRATIS</Text>
           <Text style={styles.textoHeader}>El conocimiento es <Text style={{fontWeight: "bold"}}>Poder</Text></Text>
         </View>
       }
         <Search setSearch={setSearch}/>
-        {search != "" && 
+        {search != "" &&
           <BottomsMode mode={mode} search={search} setMode={setMode} />
         }
         {books.length > 0 ?
-          !mode ? 
+          !mode ?
             <FlatList
               data={books}
               renderItem={({item})=>(<Card item={item} navigation={navigation} />)}
@@ -92,17 +92,17 @@ export default function FreeScreen({navigation}) {
               onEndReached={fetchBooks}
               onEndReachedThreshold={0.8}
             />
-          : 
+          :
           <ScrollView>
             <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-              <Image style={styles.images} source={require("./Images/knowledge_.png")} />
+              <Image style={styles.images} source={require("../Images/knowledge_.png")} />
               <Text style={styles.frase}>"¡Qué extraña cosa el conocimiento! Una vez que ha penetrado en la mente, se aferra a ella como la hiedra a la roca"</Text>
               <Text style={{fontWeight: "bold", fontSize:20,}}>-Frankenstein</Text>
             </View>
           </ScrollView>
         }
          {error != '' && <Text>{error}</Text>}
-      
+
     </View>
   );
 }

@@ -1,29 +1,30 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 //Views
 import SearchBookScreen from './components/SearchBookScreen';
 import BookDetailScreen from './components/BookDetailScreen';
 import FreeScreen from './components/FreeScreen';
 
-import { AntDesign, Entypo, FontAwesome } from '@expo/vector-icons'; 
-import { Entypo } from '@expo/vector-icons'; 
-const Stack = createStackNavigator();
+import { AntDesign, Entypo, FontAwesome } from '@expo/vector-icons';
+const Stack = createNativeStackNavigator();
 
 function SearchStack(){
   return (
     <Stack.Navigator screenOptions={{title: null}}>
       <Stack.Screen
-        name="Search"
+        name="SearchStack"
         component={SearchBookScreen}
-        
+        options={{
+          headerShown: false
+        }}
       />
-      <Stack.Screen 
+      <Stack.Screen
         name="Detail"
         component={BookDetailScreen}
         options={{
-          headerTransparent: true
+          headerShown: false
         }}
       />
     </Stack.Navigator>
@@ -33,15 +34,17 @@ function FreeStack(){
   return (
     <Stack.Navigator screenOptions={{title: null}}>
       <Stack.Screen
-        name="Free"
+        name="FreeStack"
         component={FreeScreen}
-        
+        options={{
+          headerShown: false
+        }}
       />
-      <Stack.Screen 
+      <Stack.Screen
         name="Detail"
         component={BookDetailScreen}
         options={{
-          headerTransparent: true
+          headerShown: false
         }}
       />
     </Stack.Navigator>
@@ -58,25 +61,21 @@ export default function App(){
         inactiveTintColor: '#777',
     }}>
 			<Tabs.Navigator>
-				<Tabs.Screen name="Search" component={SearchStack} 
+				<Tabs.Screen name="Search" component={SearchStack}
 				options={{
 					tabBarIcon:({color})=>(
 						<AntDesign name="search1" size={25} color={color}/>
-					)
+					),
+          headerShown: false
 				}}/>
-				<Tabs.Screen name="Free" component={FreeStack} 
+				<Tabs.Screen name="Free" component={FreeStack}
 				options={{
 					tabBarIcon:({color})=>(
 						<Entypo name="open-book" size={25} color={color} />
-					)
+					),
+          headerShown: false
 				}}/>
 			</Tabs.Navigator>
 		</NavigationContainer>
 	)
 }
-
-/*
-Icono de Users
-<FontAwesome name="user-circle" size={25} color="#999" />
-
-*/
